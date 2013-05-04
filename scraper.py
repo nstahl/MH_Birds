@@ -1,16 +1,25 @@
 import requests
 import subprocess
-from bs4 import BeautifulSoup
+import sys
 
-print 'Bird Song Scraper!'
+def download(mp3_link, local_fname):
+  print 'Downloading: ' + mp3_link
+  command = ' '.join(['curl', '-o', download_dir + local_fname, mp3_link])
+  subprocess.call(command, shell=True)
+  
+
+download_dir = 'downloads/'
+
+#typical response
+#
+
 url = 'http://macaulaylibrary.org/search?&recordist=Parker,%20Theodore%20A.,%20III&recordist_id=911'
 r = requests.get(url)
 html_doc = r.text
-
-print(html_doc)
-
-#wget http://audio.macaulaylibrary.org/8/83163.mp3
-#curl -o test.mp3 http://audio.macaulaylibrary.org/8/83163.mp3
-subprocess.call("curl -o test.mp3 http://audio.macaulaylibrary.org/8/83163.mp3", \
-                shell=True)
+print html_doc
 sys.exit(0)
+
+mp3_link = 'http://audio.macaulaylibrary.org/7/72788.mp3'
+download(mp3_link, 'second_test.mp3')
+
+
